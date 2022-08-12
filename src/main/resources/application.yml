@@ -1,0 +1,4 @@
+#server.port=8081 => fichier properties
+#fichier yml
+server:
+  port: 8081
