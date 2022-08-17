@@ -28,7 +28,7 @@ public class initPerson implements ApplicationListener<ApplicationReadyEvent> {
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
         System.out.println("Application ready");
-
+/*
         // create Person with lastName, firstName, email, birthday
         Person person = new Person("Doe", "John", "john@gmail.com", LocalDate.of(1980, 3, 12));
         Person person2 = new Person("Doe", "Jane", "Jane@gmail.com", LocalDate.of(1980, 3, 12));
@@ -44,6 +44,8 @@ public class initPerson implements ApplicationListener<ApplicationReadyEvent> {
         person2.setDepartment(departmentRH);
         personService.createPerson(person);
         personService.createPerson(person2);
+
+ */
 
         /*
         personRepository.findById(1L).ifPresent(System.out::println);

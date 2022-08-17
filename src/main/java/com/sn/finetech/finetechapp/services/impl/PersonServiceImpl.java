@@ -19,6 +19,11 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    public List<Person> findAll() {
+        return personRepository.findAll();
+    }
+
+    @Override
     public Person createPerson(Person person) {
         person.setMatricule(randomString(10));
         return personRepository.save(person);
@@ -47,6 +52,16 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public List<Person> findByDepartmentCodeContainsI() {
         return personRepository.findByDepartmentCodeContainsI();
+    }
+
+    @Override
+    public Person findById(Long id) {
+        return personRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void deletePerson(Long id) {
+        personRepository.deleteById(id);
     }
 
     // create random String of length n
