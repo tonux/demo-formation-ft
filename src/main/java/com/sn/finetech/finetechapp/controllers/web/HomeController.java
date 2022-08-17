@@ -1,4 +1,4 @@
-package com.sn.finetech.finetechapp.controllers;
+package com.sn.finetech.finetechapp.controllers.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

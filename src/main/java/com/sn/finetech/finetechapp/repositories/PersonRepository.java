@@ -22,4 +22,6 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
     // find person by department code contains "I"
     @Query("select p from Person p where p.department.code like 'I%'")
     List<Person> findByDepartmentCodeContainsI();
+
+    Person findByLastName(String lastName);
 }

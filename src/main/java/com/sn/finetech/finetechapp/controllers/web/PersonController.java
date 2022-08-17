@@ -1,4 +1,4 @@
-package com.sn.finetech.finetechapp.controllers;
+package com.sn.finetech.finetechapp.controllers.web;
 
 import com.sn.finetech.finetechapp.model.Person;
 import com.sn.finetech.finetechapp.repositories.PersonRepository;

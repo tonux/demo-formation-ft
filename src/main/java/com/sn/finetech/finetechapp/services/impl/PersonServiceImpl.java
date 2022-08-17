@@ -64,6 +64,11 @@ public class PersonServiceImpl implements PersonService {
         personRepository.deleteById(id);
     }
 
+    @Override
+    public Person findByLastName(String lastName) {
+        return personRepository.findByLastName(lastName);
+    }
+
     // create random String of length n
     public static String randomString(int n) {
         String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
