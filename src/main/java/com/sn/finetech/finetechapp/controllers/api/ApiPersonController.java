@@ -53,11 +53,29 @@ public class ApiPersonController {
         return personService.findByLastName(lastName);
     }
 
-    //TODO find person by first name
+    @GetMapping("/searchbyname")
+    public ResponseEntity<List<Person>> findOneByFirstName(@RequestParam(name = "firstName") String firstName) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(personService.findByFirstName(firstName));
 
-    //TODO find person by first name and last name
+    }
 
-    //TODO delete person by id
+    // find person by first name and last name
+    @GetMapping("searchbyfullname")
+    public ResponseEntity<List<Person>> findByFirstNameAndLastName(@RequestParam(name = "firstName") String firstName, @RequestParam(name = "lastName") String lastName) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(personService.findByFirstNameAndLastName(firstName, lastName));
+    }
 
-    //TODO update person
+    // delete person by id
+    @DeleteMapping("deleteperson")
+    public void deletePersonById(@RequestParam(name = "id") Long id) {
+        personService.deletePerson(id);
+    }
+
+    // update person
+    @PutMapping("updateperson")
+    public void putPerson(@RequestParam(name = "id") Long id , @RequestBody Person person) {
+        person.setId(id);
+        //Calling createPerson that call the save method of PersonRepository which will update since person already exists
+        personService.createPerson(person);
+    }
 }
