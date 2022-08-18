@@ -4,6 +4,7 @@ import com.sn.finetech.finetechapp.model.Department;
 import com.sn.finetech.finetechapp.model.Person;
 import com.sn.finetech.finetechapp.repositories.DepartmentRepository;
 import com.sn.finetech.finetechapp.repositories.PersonRepository;
+import com.sn.finetech.finetechapp.services.DepartmentService;
 import com.sn.finetech.finetechapp.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -18,11 +19,11 @@ public class initPerson implements ApplicationListener<ApplicationReadyEvent> {
 
     PersonService personService;
 
-    DepartmentRepository departmentRepository;
+    DepartmentService departmentService;
 
-    public initPerson(PersonService personService, DepartmentRepository departmentRepository) {
+    public initPerson(PersonService personService, DepartmentService departmentService) {
         this.personService = personService;
-        this.departmentRepository = departmentRepository;
+        this.departmentService = departmentService;
     }
 
     @Override
@@ -36,9 +37,9 @@ public class initPerson implements ApplicationListener<ApplicationReadyEvent> {
         Department departmentRH = new Department("RH department", "RH department description", "RH");
         Department departmentMKG = new Department("MKG department", "MKG department description", "MKG");
 
-        departmentRepository.save(department);
-        departmentRepository.save(departmentRH);
-        departmentRepository.save(departmentMKG);
+        departmentService.createDepartment(department);
+        departmentService.createDepartment(departmentRH);
+        departmentService.createDepartment(departmentMKG);
 
         person.setDepartment(department);
         person2.setDepartment(departmentRH);
