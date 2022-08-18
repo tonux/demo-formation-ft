@@ -1,7 +1,7 @@
 server:
   port: 8082
 
-# config mysql
+# config mysql (equivalente au contenu de config.DataSourceConfig.java)
 spring:
   jpa:
     hibernate:
@@ -10,5 +10,5 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/testdb?createDatabaseIfNotExist=true
     username: root
-    password:
+    password: qsdfjklm
     driver-class-name: com.mysql.cj.jdbc.Driver
