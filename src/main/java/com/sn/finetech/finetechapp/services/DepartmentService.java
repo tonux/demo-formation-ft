@@ -1,13 +1,18 @@
-package com.sn.finetech.finetechapp.repositories;
+package com.sn.finetech.finetechapp.services;
 
 import com.sn.finetech.finetechapp.model.Department;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface DepartmentRepository extends JpaRepository<Department, Long> {
+public interface DepartmentService {
+    Department create(Department department);
+
+    List<Department> createAll(Iterable<Department> departements);
+
     Optional<List<Department>> findByName(String name);
+
     Optional<List<Department>> findByCode(String code);
+
     Optional<Department> findById(Long id);
 }
