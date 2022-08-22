@@ -17,6 +17,5 @@ public interface PersonService {
     Person findById(Long id);
     void deletePerson(Long id);
     List<Person> findByLastName(String lastName);
-
     void update(Person person);
 }
