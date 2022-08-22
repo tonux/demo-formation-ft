@@ -2,3 +2,10 @@
 #fichier yml
 server:
   port: 8081
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui

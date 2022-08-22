@@ -69,6 +69,16 @@ public class PersonServiceImpl implements PersonService {
         return personRepository.findByLastName(lastName);
     }
 
+    @Override
+    public Person updatePerson(Long id, Person person) {
+        Person p = personRepository.findById(id).orElse(null);
+        p.setFirstName(person.getFirstName());
+        p.setLastName(person.getLastName());
+        p.setEmail(person.getEmail());
+        p.setBirthday(person.getBirthday());
+        return personRepository.save(p);
+    }
+
     // create random String of length n
     public static String randomString(int n) {
         String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"

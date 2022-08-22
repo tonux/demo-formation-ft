@@ -21,4 +21,6 @@ public interface PersonService {
     void deletePerson(Long id);
 
     Person findByLastName(String lastName);
+
+    Person updatePerson(Long id, Person person);
 }
