@@ -2,7 +2,6 @@ package com.sn.finetech.finetechapp.exception;
 
 import org.springframework.http.HttpStatus;
 
-
 public class ApiException extends RuntimeException{
 
     private static final long serialVersionUID = 1L;
@@ -28,5 +27,4 @@ public class ApiException extends RuntimeException{
     public String getMessage() {
         return message;
     }
-
 }

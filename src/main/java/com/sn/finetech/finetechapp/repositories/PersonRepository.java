@@ -10,7 +10,6 @@ import java.util.List;
 
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Long> {
-
     List<Person> findByFirstName(String firstName);
     List<Person> findByFirstNameAndLastName(String firstName, String lastName);
 
@@ -23,5 +22,7 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
     @Query("select p from Person p where p.department.code like 'I%'")
     List<Person> findByDepartmentCodeContainsI();
 
-    Person findByLastName(String lastName);
+    List<Person> findByLastName(String lastName);
+
+    void deleteById(Long id);
 }
