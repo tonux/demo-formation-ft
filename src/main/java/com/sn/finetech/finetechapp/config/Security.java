@@ -4,7 +4,6 @@ import com.sn.finetech.finetechapp.config.jwt.JwtFilter;
 import com.sn.finetech.finetechapp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -61,9 +60,13 @@ public class Security extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         // activer les cors et desactiver les CSRF
-        http = http.cors().and().csrf().disable();
+        http = http
+                .cors()
+                .and()
+                .csrf()
+                .disable();
 
-        // Mettre la getion de la session a un sans etat
+        // Mettre la gestion de la session a un sans etat
         http = http
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
