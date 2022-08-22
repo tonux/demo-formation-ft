@@ -22,7 +22,7 @@ public class ApiPersonController {
      * - DELETE /api/v1/person/{id}
      * - GET /api/v1/person/search?lastName="Mane"
      * - GET /api/v1/person/firstName?firstName="..."
-     * - GET /api/v1/person/FirstNameAndLastName?firstName="..."?lastName="..."
+     * - GET /api/v1/person/FirstNameAndLastName?firstName="..."&lastName="..."
      */
 
     PersonService personService;
