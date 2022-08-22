@@ -62,4 +62,8 @@ public class Department {
     public void setPersons(Set<Person> persons) {
         this.persons = persons;
     }
+
+    public Long getId() {
+        return this.id;
+    }
 }
