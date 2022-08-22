@@ -6,3 +6,11 @@ server:
 spring:
   profiles:
     active: mysql
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui
+

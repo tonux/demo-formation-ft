@@ -1,9 +1,12 @@
 package com.sn.finetech.finetechapp.controllers.api;
 
+import com.sn.finetech.finetechapp.exception.ApiException;
 import com.sn.finetech.finetechapp.model.Person;
+import com.sn.finetech.finetechapp.model.Role;
 import com.sn.finetech.finetechapp.services.PersonService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,8 +33,12 @@ public class ApiPersonController {
 
     // create person
     @PostMapping
+    @PreAuthorize("hasAuthority('"+ Role.ADMIN+"')")
     public ResponseEntity<Person> createPerson(@RequestBody Person person) {
         Person personResponse = personService.createPerson(person);
+        if(personResponse == null) {
+            throw new ApiException(HttpStatus.BAD_REQUEST, "Person not created");
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(personResponse);
     }
 

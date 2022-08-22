@@ -2,14 +2,29 @@ package com.sn.finetech.finetechapp.exception;
 
 import org.springframework.http.HttpStatus;
 
-public class ApiException extends RuntimeException {
-    private HttpStatus status;
-    private String message;
-    private Throwable throwable;
+public class ApiException extends RuntimeException{
 
-    public ApiException(HttpStatus httpStatus, String message, Throwable throwable) {
+    private static final long serialVersionUID = 1L;
+    private final HttpStatus httpStatus;
+    private final String message;
+
+    public ApiException(HttpStatus httpStatus, String message) {
         super(message);
-        this.status = httpStatus;
-        this.throwable = throwable;
+        this.httpStatus = httpStatus;
+        this.message = message;
+    }
+
+    public ApiException(HttpStatus httpStatus, String message, Throwable cause) {
+        super(message);
+        this.httpStatus = httpStatus;
+        this.message = message;
+    }
+
+    public HttpStatus getHttpStatus() {
+        return httpStatus;
+    }
+
+    public String getMessage() {
+        return message;
     }
 }
