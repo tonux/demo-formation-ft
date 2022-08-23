@@ -16,7 +16,6 @@ public class DepartmentServiceImpl implements DepartmentService {
     public DepartmentServiceImpl(DepartmentRepository departmentRepository) {
         this.departmentRepository = departmentRepository;
     }
-
     @Override
     public List<Department> findAllDepartment() {
         return departmentRepository.findAll();
