@@ -14,5 +14,5 @@ public interface DepartmentService {
 
     void deleteDepartmentById(Long depId);
 
-    void findByCode(String code);
+
 }
