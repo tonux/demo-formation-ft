@@ -70,13 +70,16 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public Person updatePerson(Long id, Person person) {
-        Person p = personRepository.findById(id).orElse(null);
-        p.setFirstName(person.getFirstName());
-        p.setLastName(person.getLastName());
-        p.setEmail(person.getEmail());
-        p.setBirthday(person.getBirthday());
-        return personRepository.save(p);
+    public Person updatePerson(Long id, Person person)
+    {
+        Person updatePerson = personRepository.findById(id).orElse(null); // find person
+        assert updatePerson != null;
+        updatePerson.setFirstName(person.getFirstName());
+        updatePerson.setLastName(person.getLastName());
+        updatePerson.setEmail(person.getEmail());
+        updatePerson.setBirthday(person.getBirthday());
+        return personRepository.save(updatePerson);
+
     }
 
     // create random String of length n

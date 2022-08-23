@@ -73,6 +73,7 @@
 
 	</dependencies>
 
+	<!--
 	<profiles>
 		<profile>
 			<id>development</id>
@@ -84,6 +85,8 @@
 			</activation>
 		</profile>
 	</profiles>
+	-->
+
 
 	<build>
 		<plugins>

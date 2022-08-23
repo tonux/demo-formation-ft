@@ -24,6 +24,8 @@ public class ApiPersonController {
      * - PUT /api/v1/person/{id}
      * - DELETE /api/v1/person/{id}
      * - GET /api/v1/person/search?lastName="Mane"
+     * - GET /api/v1/person/firstName?firstName="..."
+     * - GET /api/v1/person/FirstNameAndLastName?firstName="..."&lastName="..."
      */
 
     private final PersonService personService;
@@ -60,8 +62,7 @@ public class ApiPersonController {
         return personService.findByLastName(lastName);
     }
 
-    // find person by first name
-    @GetMapping("/firstName")
+
     public List<Person> findByFirstName(@RequestParam(name="firstName") String firstName) {
         return personService.findByFirstName(firstName);
     }
@@ -75,12 +76,15 @@ public class ApiPersonController {
     // delete person by id
     @DeleteMapping("/{id}")
     public void deletePerson(@PathVariable Long id) {
+
         personService.deletePerson(id);
     }
 
     // update person
     @PatchMapping("/{id}")
-    public Person updatePerson(@PathVariable Long id, @RequestBody Person person) {
-        return personService.updatePerson(id, person);
-    }
+
+    public Person updatePerson(@PathVariable Long id, @RequestBody Person person)
+    {
+        return personService.updatePerson(id,person);}
+
 }
