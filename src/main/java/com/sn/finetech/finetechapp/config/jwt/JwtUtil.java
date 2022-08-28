@@ -19,7 +19,12 @@ public class JwtUtil {
 
     public String generateAccesToken(User user){
         Claims claims = Jwts.claims().setSubject(user.getUsername());
-        claims.put("scopes", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
+        claims.put(
+                "scopes",
+                user.getAuthorities()
+                        .stream()
+                        .map(GrantedAuthority::getAuthority)
+                        .collect(Collectors.toList()));
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(user.getFirstName()+","+user.getUsername())
@@ -36,7 +41,7 @@ public class JwtUtil {
                 .setSubject(user.getFirstName()+","+user.getUsername())
                 .setIssuer("finetech.sn")
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 24 * 60 * 60 *1000))// 1 semaine
+                .setExpiration(new Date(System.currentTimeMillis() + 24 * 60 * 60 *1000))// 24 heures
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
@@ -65,7 +70,9 @@ public class JwtUtil {
     // Verifier la validité du token
     public boolean validate(String token){
         try{
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
+            Jwts.parser()
+                    .setSigningKey(jwtSecret)
+                    .parseClaimsJws(token);
             return true;
         } catch (SignatureException ex){
             System.out.println("Invalide Signature Jwt - "+ex.getMessage());

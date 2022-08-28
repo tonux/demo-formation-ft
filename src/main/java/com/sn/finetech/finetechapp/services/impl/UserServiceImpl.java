@@ -16,7 +16,7 @@ import java.util.Set;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
@@ -30,13 +30,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public User registration(User userRequest) throws ValidationException {
         // verifier si l'utilisateur existe
-        if(userRepository.findByUsername(userRequest.getUsername()).isPresent()){
+        if(userRepository.findByUsername(userRequest.getUsername()).isPresent())
             throw new ValidationException("L'utilisateur existe déjà");
-        }
 
-        if(userRequest.getAuthorities() == null || userRequest.getAuthorities().isEmpty()){
+        //si l'utilisatur n'a pas de rôle, lui donner le role User
+        if(userRequest.getAuthorities() == null || userRequest.getAuthorities().isEmpty())
             userRequest.setAuthorities(Set.of(new Role(Role.USER)));
-        }
+
         User user = userRequest;
 
         user.setPassword(passwordEncoder.encode(userRequest.getPassword()));

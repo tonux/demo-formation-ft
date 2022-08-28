@@ -7,22 +7,19 @@ import java.util.Set;
 @Table(name="department_table", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"code"})
 })
-
  */
 @Entity
-
 public class Department {
     // name, description
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String name;
     private String description;
     private String code;
 
     @OneToMany(mappedBy = "department", fetch = FetchType.LAZY,
-    cascade = CascadeType.ALL)
+            cascade = CascadeType.ALL)
     private Set<Person> persons;
 
     public Department() {
@@ -64,5 +61,9 @@ public class Department {
 
     public void setPersons(Set<Person> persons) {
         this.persons = persons;
+    }
+
+    public Long getId() {
+        return this.id;
     }
 }

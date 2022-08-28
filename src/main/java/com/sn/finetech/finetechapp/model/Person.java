@@ -1,5 +1,6 @@
 package com.sn.finetech.finetechapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -18,31 +19,25 @@ public class Person {
     @Column(name = "prenom")
     private String firstName;
     private String email;
-
     private LocalDate birthday;
-
     @Nullable
     private String address;
-
     private String matricule;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id", nullable = true)
+    @JsonIgnore
     private Department department;
 
     @Transient
     private int age;
 
-
-
-    public Person() {
-
-    }
+    public Person() {}
 
     public Person(String lastName, String firstName, String email, LocalDate birthday) {
-    	this.lastName = lastName;
-    	this.firstName = firstName;
-    	this.email = email;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.email = email;
         this.birthday = birthday;
     }
 

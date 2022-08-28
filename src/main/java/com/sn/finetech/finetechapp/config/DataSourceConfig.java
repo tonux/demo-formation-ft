@@ -17,7 +17,7 @@ public class DataSourceConfig {
         dataSourceBuilder.url("jdbc:mysql://localhost:3306/testdb?createDatabaseIfNotExist=true");
 
         dataSourceBuilder.username("root");
-        dataSourceBuilder.password("");
+        dataSourceBuilder.password("qsdfjklm");
 
         return dataSourceBuilder.build();
     }

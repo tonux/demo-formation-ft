@@ -4,7 +4,6 @@ import com.sn.finetech.finetechapp.config.jwt.JwtFilter;
 import com.sn.finetech.finetechapp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -29,8 +28,7 @@ import static java.lang.String.format;
         prePostEnabled = true
 )
 public class Security extends WebSecurityConfigurerAdapter {
-
-    private final com.sn.finetech.finetechapp.repositories.UserRepository UserRepository;
+    private final UserRepository UserRepository;
     private final JwtFilter jwtFilter;
 
     @Value("${springdoc.api-docs.path}")
@@ -43,16 +41,17 @@ public class Security extends WebSecurityConfigurerAdapter {
 
         this.UserRepository = UserRepository;
         this.jwtFilter = jwtFilter;
-        SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);
+        SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL); //TODO: why ?
     }
 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        auth.userDetailsService(username -> UserRepository
+        auth.userDetailsService(username ->
+                UserRepository
                 .findByUsername(username)
                 .orElseThrow(
                         () -> new UsernameNotFoundException(
-                                format("utilisateur: %s,  pas trouvé", username)
+                                format("utilisateur: %s, introuvable trouvé", username)
                         )
                 ));
     }
@@ -61,24 +60,28 @@ public class Security extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         // activer les cors et desactiver les CSRF
-        http = http.cors().and().csrf().disable();
+        http = http
+                .cors()
+                .and()
+                .csrf()
+                .disable(); //TODO: how to use it without disabling it ?
 
-        // Mettre la getion de la session a un sans etat
+        // Mettre la gestion de la session a un sans etat
         http = http
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS) //TODO: explain this
                 .and();
 
-        // mettre pas autoriser si on a une exception
+        // log "demande non autorisée" si on a une exception
         http = http
                 .exceptionHandling()
-                        .authenticationEntryPoint(
-                                ((request, response, authException) -> {
-                                    System.out.println("Demande pas autoriser - "+authException.getMessage());
-                                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
-                                })
-                        )
-                                .and();
+                .authenticationEntryPoint(
+                        (request, response, authException) -> {
+                            System.out.println("Demande non autorisée - " + authException.getMessage());
+                            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
+                        }
+                )
+                .and();
 
         // mettre les permissions sur nos resources
         http.authorizeHttpRequests()
