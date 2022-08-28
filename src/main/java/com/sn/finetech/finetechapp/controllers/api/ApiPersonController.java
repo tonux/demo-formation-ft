@@ -36,9 +36,8 @@ public class ApiPersonController {
     @PreAuthorize("hasAuthority('"+ Role.ADMIN+"')")
     public ResponseEntity<Person> createPerson(@RequestBody Person person) {
         Person personResponse = personService.createPerson(person);
-        if(personResponse == null) {
+        if(personResponse == null)
             throw new ApiException(HttpStatus.BAD_REQUEST, "Person not created");
-        }
         return ResponseEntity.status(HttpStatus.CREATED).body(personResponse);
     }
 

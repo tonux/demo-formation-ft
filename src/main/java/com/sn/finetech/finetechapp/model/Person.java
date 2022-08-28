@@ -1,7 +1,6 @@
 package com.sn.finetech.finetechapp.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
