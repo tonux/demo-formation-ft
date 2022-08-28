@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PersonServiceImpl implements PersonService {
@@ -65,18 +66,15 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public Person findByLastName(String lastName) {
+    public List<Person> findByLastName(String lastName) {
         return personRepository.findByLastName(lastName);
     }
 
     @Override
-    public Person updatePerson(Long id, Person person) {
-        Person p = personRepository.findById(id).orElse(null);
-        p.setFirstName(person.getFirstName());
-        p.setLastName(person.getLastName());
-        p.setEmail(person.getEmail());
-        p.setBirthday(person.getBirthday());
-        return personRepository.save(p);
+    public void update(Person person) {
+        if(personRepository.findById(person.getId()).isEmpty())
+            return;
+        personRepository.save(person);
     }
 
     // create random String of length n

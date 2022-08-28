@@ -1,6 +1,5 @@
 package com.sn.finetech.finetechapp.controllers.api;
 
-
 import com.sn.finetech.finetechapp.exception.ApiException;
 import com.sn.finetech.finetechapp.model.Person;
 import com.sn.finetech.finetechapp.model.Role;
@@ -23,7 +22,7 @@ public class ApiPersonController {
      * - PATCH /api/v1/person/{id}
      * - PUT /api/v1/person/{id}
      * - DELETE /api/v1/person/{id}
-     * - GET /api/v1/person/search?lastName="Mane"
+     * - GET /api/v1/person/searchByLastName?lastName="Mane"
      */
 
     private final PersonService personService;
@@ -46,7 +45,14 @@ public class ApiPersonController {
     // find all persons
     @GetMapping
     public ResponseEntity<List<Person>> findAll() {
-        return ResponseEntity.status(HttpStatus.OK).body(personService.findAll());
+
+        List<Person> persons = personService.findAll();
+        /*if(persons.isEmpty()) {
+            return ResponseEntity
+                    .status(HttpStatus.NO_CONTENT)
+                    .body(new ApiException(HttpStatus.NO_CONTENT, "No persons found", ));
+        }*/
+        return ResponseEntity.status(HttpStatus.OK).body(persons);
     }
 
     // find person by id
@@ -55,32 +61,34 @@ public class ApiPersonController {
         return personService.findById(id);
     }
 
-    @GetMapping("/search")
-    public Person findByName(@RequestParam(name="lastName") String lastName) {
-        return personService.findByLastName(lastName);
+    @GetMapping("/searchByLastName")
+    public ResponseEntity<List<Person>> findByLastName(@RequestParam(name="lastName") String lastName) {
+        List<Person> persons = personService.findByLastName(lastName);
+        return ResponseEntity.status(HttpStatus.OK).body(persons);
     }
 
-    // find person by first name
-    @GetMapping("/firstName")
-    public List<Person> findByFirstName(@RequestParam(name="firstName") String firstName) {
-        return personService.findByFirstName(firstName);
+    @GetMapping("/searchByFirstName")
+    public ResponseEntity<List<Person>> findByFistName(@RequestParam(name="firstName") String firstName) {
+        List<Person> persons = personService.findByFirstName(firstName);
+        return ResponseEntity.status(HttpStatus.OK).body(persons);
     }
 
-    // find person by first name and last name
-    @GetMapping("/firstNameAndLastName")
-    public List<Person> findByFirstNameAndLastName(@RequestParam(name="firstName") String firstName, @RequestParam(name="lastName") String lastName) {
-        return personService.findByFirstNameAndLastName(firstName, lastName);
+    @GetMapping("/searchByFistNameAndLastName")
+    public ResponseEntity<List<Person>> findByFisrtNameAndLastName(
+            @RequestParam(name="firstName") String firstName,
+            @RequestParam(name="lastName") String lastName) {
+        List<Person> persons = personService.findByFirstNameAndLastName(firstName, lastName);
+        return ResponseEntity.status(HttpStatus.OK).body(persons);
     }
 
-    // delete person by id
-    @DeleteMapping("/{id}")
-    public void deletePerson(@PathVariable Long id) {
+    @DeleteMapping("/delete/{id}")
+    public void deleteById(@PathVariable Long id) {
         personService.deletePerson(id);
     }
 
-    // update person
-    @PatchMapping("/{id}")
-    public Person updatePerson(@PathVariable Long id, @RequestBody Person person) {
-        return personService.updatePerson(id, person);
+    @PutMapping("/update/{id}")
+    public void update(@PathVariable Long id, @RequestBody Person person) {
+        person.setId(id);
+        personService.update(person);
     }
 }
